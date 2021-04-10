@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class FibonacciSeries {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long n = sc.nextLong();
+        long[] arr = new long[(int) n + 1];
+        Arrays.fill(arr, -1);
+        System.out.println(f(n, arr));
+        sc.close();
+    }
+
+    public static long f(long n, long[] arr) {
+        if (arr[(int) n] != -1)
+            return (arr[(int) n]);
+        if (n <= 2)
+            return (1);
+        else {
+            arr[(int) n] = f(n - 1, arr) + f(n - 2, arr);
+            return (arr[(int) n]);
+        }
+    }
+}
