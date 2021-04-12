@@ -1,0 +1,44 @@
+-----------------------------------------solution 1: top to bottom
+public class Main {
+    public static void main(String[] args) {
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+        int[] arr = { 4, 5 };
+        System.out.println(f(64, arr, map));
+    }
+
+    public static ArrayList<Integer> f(int sum, int[] nums, HashMap<Integer, ArrayList<Integer>> map) {
+        if (map.containsKey(sum)) {
+            return (map.get(sum));
+        }
+        ArrayList<Integer> rlist = new ArrayList<Integer>();
+        ArrayList<Integer> shortestlist = new ArrayList<Integer>();
+        shortestlist = null;
+        if (sum == 0) {
+            return (new ArrayList<Integer>());
+        }
+        if (sum < 0) {
+            return (null);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int remainder = sum - nums[i];
+            ArrayList<Integer> rlist123 = new ArrayList<Integer>();
+            rlist123 = f(remainder, nums, map);
+            if (rlist123 == null) {
+                rlist = null;
+            } else {
+                rlist = new ArrayList<Integer>(rlist123);
+            }
+            if (rlist != null) {
+                rlist.add(nums[i]);
+                if (shortestlist == null) {
+                    shortestlist = new ArrayList<Integer>(rlist);
+                } else if (rlist.size() < shortestlist.size()) {
+                    shortestlist = new ArrayList<Integer>(rlist);
+                }
+            }
+        }
+        map.put(sum, shortestlist);
+        return (shortestlist);
+    }
+}
+--------------------------------------------------------------solution 2: bottom to top
