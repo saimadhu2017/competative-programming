@@ -42,3 +42,50 @@ public class Main {
     }
 }
 --------------------------------------------------------------solution 2: bottom to top
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // int[] nums={5,3,4}; //true
+        // int target=7;
+        // int[] nums={2,3};//ture
+        // int target=7;
+        // int[] nums={5,3,4,7};//ture
+        // int target=7;
+        // int[] nums={2,4};//false
+        // int target=7;
+        // int[] nums={2,3,5};//true
+        // int target=8;
+        // int[] nums = { 7, 14};//false
+        // int target = 300;
+        // int[] nums = { 1,4,5};//true
+        // int target = 8;
+        int[] nums = { 1,2,5,25};//true
+        int target = 100;
+        System.out.println(f(target, nums));
+    }
+
+    public static ArrayList<Integer> f(int sum, int[] arr) {
+        ArrayList[] dp=new ArrayList[sum+1];
+        dp[0]=new ArrayList<Integer>();
+        for(int i=0;i<dp.length;i++){
+            if(dp[i]!=null){
+                for(int j=0;j<arr.length;j++){
+                    if(arr[j]+i<dp.length){
+                        ArrayList<Integer> li = new ArrayList<Integer>(dp[i]);
+                        li.add(arr[j]);
+                        if(dp[arr[j] + i]!=null){
+                            if(li.size()<dp[arr[j]+i].size()){
+                                dp[arr[j] + i] = li;
+                            }
+                        }
+                        else{
+                            dp[arr[j] + i] = li;
+                        }
+                    }
+                }
+            }
+        }
+        return(dp[sum]);
+    }
+}
