@@ -1,0 +1,35 @@
+-----------------------------------------------solution 1: top to bottom
+public class Main {
+    public static void main(String[] args) {
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        int[] nums = { 4, 5 };
+        System.out.println(f(10000, nums, map));
+    }
+
+    public static ArrayList<Integer> f(int sum, int[] nums, HashMap<Integer, ArrayList<Integer>> map) {
+        ArrayList<Integer> rlist = new ArrayList<Integer>();
+        if (sum == 0) {
+            return (new ArrayList<Integer>());
+        }
+        if (sum < 0) {
+            return (null);
+        }
+        if (map.containsKey(sum)) {
+            return (map.get(sum));
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int remainder = sum - nums[i];
+            rlist = f(remainder, nums, map);
+            if (rlist != null) {
+                map.put(remainder, rlist);
+                rlist.add(nums[i]);
+                return (rlist);
+            } else {
+                map.put(remainder, rlist);
+            }
+        }
+        map.put(sum, rlist);
+        return (null);
+    }
+}
+-----------------------------------------------Solution 2: bottom to top
