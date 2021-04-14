@@ -27,3 +27,32 @@ public class Main {
     }
 }
 ---------------------------------------------------------solution 2: bottom to top
+public class Main {
+    public static void main(String[] args) {
+        // String target="abcdef";
+        // String[] wc={"ab","abc","cd","def","abcd","asasasasasasasas"};//true
+        // String target="skateboard";
+        // String[] wc={"bo","rd","ate","t","ska","sk","boar"};//false
+        // String target="enterapotentpot";
+        // String[] wc={"a","p","ent","enter","ot","o","t"};//true
+        // String target="eeeeeeeeeeeeeeeeeeeeef";
+        // String[] wc={ "e", "eeeeeeee", "eee", "ee", "eee", "ee", "e", "ff", "ef"
+        // };//true
+        String target = "eeeeeeeeeeeeeeeeeeeeef";
+        String[] wc = { "e", "f" };// true
+        boolean[] dp = new boolean[target.length() + 1];
+        dp[0] = true;
+        for (int i = 0; i < dp.length - 1; i++) {
+            if (dp[i] == true) {
+                for (int j = 0; j < wc.length; j++) {
+                    if (target.charAt(i) == wc[j].charAt(0) && i + wc[j].length() <= target.length()) {
+                        if (target.substring(i, i + wc[j].length()).equals(wc[j])) {
+                            dp[i + wc[j].length()] = true;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(dp[target.length()]);
+    }
+}
