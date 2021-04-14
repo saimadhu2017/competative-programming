@@ -1,0 +1,29 @@
+------------------------solution 1: top to bottom
+public class Main {
+    public static void main(String[] args) {
+        String s = "eeeeeeeeeeeeeeeeeeeeef";
+        String[] srr = { "e", "eeeeeeee", "eee", "ee", "eee", "ee", "e", "ff", "ef" };
+        HashMap<String, Boolean> map = new HashMap<>();
+        System.out.println(f(s, srr, map));
+    }
+
+    public static boolean f(String s, String[] srr, HashMap<String, Boolean> map) {
+        if (s.length() == 0) {
+            return (true);
+        }
+        if (map.containsKey(s)) {
+            return (map.get(s));
+        }
+        for (int i = 0; i < srr.length; i++) {
+            if (s.indexOf(srr[i]) == 0) {
+                if (f(s.substring(srr[i].length()), srr, map)) {
+                    map.put(s.substring(srr[i].length()), true);
+                    return (true);
+                }
+            }
+        }
+        map.put(s, false);
+        return (false);
+    }
+}
+---------------------------------------------------------solution 2: bottom to top
