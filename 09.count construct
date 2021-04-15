@@ -1,0 +1,33 @@
+-----------------------solution 1: top to bottom
+public class Main {
+    public static void main(String[] args) {
+        String[] srr = { "purp", "p", "ur", "le", "purpl" };
+        String s = "purple";
+        // String[] srr={"bo","rd","ate","t","ska","sk","boar"};
+        // String s="skateboard";
+        // String[] srr={"a","p","ent","enter","ot","o","t"};
+        // String s="enterapotentpot";
+        // String[] srr={"eee","eee","ee","e","eeeeeee"};
+        // String s="eeeeeeeeeeeeeeeeeeeeeeeeeeeeef";
+        HashMap<String, Integer> map = new HashMap<>();
+        System.out.println(f(s, srr, map));
+    }
+
+    public static int f(String s, String[] srr, HashMap<String, Integer> map) {
+        if (map.containsKey(s)) {
+            return (map.get(s));
+        }
+        int sum = 0;
+        if (s.length() == 0) {
+            return (1);
+        }
+        for (int i = 0; i < srr.length; i++) {
+            if (s.indexOf(srr[i]) == 0) {
+                sum = sum + f(s.substring(srr[i].length()), srr, map);
+            }
+        }
+        map.put(s, sum);
+        return (sum);
+    }
+}
+----------------------------------------solution 2: tabulation
