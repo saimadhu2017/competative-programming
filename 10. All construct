@@ -45,3 +45,41 @@ public class Main {
     }
 }
 -----------------------------------solution 2: bottom to top
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] wc = { "purp", "p", "ur", "le", "purpl" };
+        String target = "purple";
+        // String target = "eeeeeeeeeeeeeeeeeeeeef";
+        // String[] wc = { "e" ,"e"};
+        // String target="abcdef";
+        // String[] wc={"ab","abc","cd","def","abcd","asasasasasasasas"};//true
+        // String target="skateboard";
+        // String[] wc={"bo","rd","ate","t","ska","sk","boar"};//false
+        // String target="enterapotentpot";
+        // String[] wc={"a","p","ent","enter","ot","o","t"};
+
+        List<ArrayList<ArrayList<String>>> dp = new ArrayList<ArrayList<ArrayList<String>>>();
+        for (int i = 0; i < target.length() + 1; i++) {
+            dp.add(new ArrayList<ArrayList<String>>());
+        }
+        dp.get(0).add(new ArrayList<String>());
+        for (int i = 0; i < dp.size() - 1; i++) {
+            if (dp.get(i).size() != 0) {
+                for (int j = 0; j < wc.length; j++) {
+                    if (target.charAt(i) == wc[j].charAt(0) && i + wc[j].length() <= target.length()) {
+                        if (target.substring(i, i + wc[j].length()).equals(wc[j])) {
+                            for (int k = 0; k < dp.get(i).size(); k++) {
+                                ArrayList<String> li1 = new ArrayList<String>(dp.get(i).get(k));
+                                li1.add(wc[j]);
+                                dp.get(i + wc[j].length()).add(li1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(dp.get(target.length()));
+    }
+}
