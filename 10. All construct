@@ -1,2 +1,47 @@
 -----------------------------------solution 1: top to bottom
+public class Main {
+    public static void main(String[] args) {
+        String s = "purple";
+        String[] srr = { "purp", "p", "ur", "le", "purpl" };
+        // String s="abcdef";
+        // String[] srr={"ab","abc","cd","def","abcd","ef","c"};
+        // String s="skateboard";
+        // String[] srr={"bo","rd","ate","t","ska","sk","boar"};
+        // String s="aaaaaaaaaaaaaaaaaaaaaf";
+        // String[] srr={"aaaaa","aaaaaaf"};
+        HashMap<String, ArrayList<ArrayList<String>>> map = new HashMap<>();
+        System.out.println(f(s, srr, map));
+    }
+
+    public static ArrayList<ArrayList<String>> f(String s, String[] srr,
+            HashMap<String, ArrayList<ArrayList<String>>> map) {
+        if (s.length() == 0) {
+            ArrayList<ArrayList<String>> list1 = new ArrayList<ArrayList<String>>();
+            list1.add(new ArrayList<String>());
+            return (list1);
+        }
+        if (map.containsKey(s)) {
+            return (map.get(s));
+        }
+        ArrayList<ArrayList<String>> rlist = new ArrayList<ArrayList<String>>();
+
+        for (int i = 0; i < srr.length; i++) {
+            if (s.indexOf(srr[i]) == 0) {
+                ArrayList<ArrayList<String>> sublist = new ArrayList<ArrayList<String>>(
+                        f(s.substring(srr[i].length()), srr, map));
+                if (!sublist.isEmpty()) {
+                    for (int j = 0; j < sublist.size(); j++) {
+                        ArrayList<String> pl = new ArrayList(sublist.get(j));
+                        pl.add(0, srr[i]);
+                        sublist.set(j, pl);
+                        rlist.add(sublist.get(j));
+                    }
+                }
+            }
+        }
+
+        map.put(s, rlist);
+        return (rlist);
+    }
+}
 -----------------------------------solution 1: bottom to top
