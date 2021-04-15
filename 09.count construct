@@ -31,3 +31,31 @@ public class Main {
     }
 }
 ----------------------------------------solution 2: tabulation
+public class Main {
+    public static void main(String[] args) {
+        // String[] wc={"purp","p","ur","le","purpl"};
+        // String target="purple";
+        // String target = "eeeeeeeeeeeeeeeeeeeeef";
+        // String[] wc = { "e" ,"e"};
+        // String target="abcdef";
+        // String[] wc={"ab","abc","cd","def","abcd","asasasasasasasas"};//true
+        // String target="skateboard";
+        // String[] wc={"bo","rd","ate","t","ska","sk","boar"};//false
+        String target = "enterapotentpot";
+        String[] wc = { "a", "p", "ent", "enter", "ot", "o", "t" };
+        int[] dp = new int[target.length() + 1];
+        dp[0] = 1;
+        for (int i = 0; i < dp.length - 1; i++) {
+            if (dp[i] != 0) {
+                for (int j = 0; j < wc.length; j++) {
+                    if (target.charAt(i) == wc[j].charAt(0) && i + wc[j].length() <= target.length()) {
+                        if (target.substring(i, i + wc[j].length()).equals(wc[j])) {
+                            dp[i + wc[j].length()] = dp[i + wc[j].length()] + dp[i];
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(dp[target.length()]);
+    }
+}
