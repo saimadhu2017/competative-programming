@@ -44,4 +44,4 @@ public class Main {
         return (rlist);
     }
 }
------------------------------------solution 1: bottom to top
+-----------------------------------solution 2: bottom to top
